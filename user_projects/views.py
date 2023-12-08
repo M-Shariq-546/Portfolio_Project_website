@@ -9,6 +9,7 @@ def projects(request):
     
     context = {
         'projects':projectList,
+        'title':"Place to Connect Developers",
     }
     return render(request , 'projects/user_projects.html' , context)
 
@@ -19,6 +20,7 @@ def single_project(request , pk):
     context ={
         "project":project_info,
         "tags":ProObj,
+        'title':"Project Details",
     }
     return render(request , 'projects/single_project.html' , context)
 
@@ -34,7 +36,8 @@ def createProject(request):
             return redirect('home')
     
     context = {
-        'form':form
+        'form':form,
+        'title':"Create Project",
     }
     return render(request, 'projects/project_form.html', context)
 
@@ -51,7 +54,8 @@ def updateProject(request , pk):
             return redirect('home')
     
     context = {
-        'form':form
+        'form':form,
+        'title':"Update Project",
     }
     return render(request, 'projects/project_form.html', context)
 
@@ -65,7 +69,8 @@ def deleteProject(request , pk):
         return redirect('home')
     
     context = {
-        'project':project
+        'project':project,
+        'title':"Delete Project",
     }
     return render(request , 'projects/delete_project.html' , context)
 # Create your views here.

@@ -8,6 +8,7 @@ def profiles(request):
     profiles = Profile.objects.all()
     context ={
         'profiles':profiles,
+        'title':"Developers Page",
     }
     return render(request , "users/profiles.html" , context)
 
@@ -22,6 +23,7 @@ def single_profile(request , pk):
         'user_profile':user_profile,
         'skills':topskills,
         'otherskills':otherskills,
+        'title':"Developer Info",
     }
     
     return render(request, "users/user-profile.html" , context)
