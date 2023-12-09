@@ -36,7 +36,8 @@ def Login(request):
     if request.method =="POST":
         username = request.POST['username']
         password = request.POST['password']
-        
+        print(request.user.is_authenticated)
+        print(request.user)
         
         try:
             user = User.objects.get(username = username)
@@ -47,7 +48,7 @@ def Login(request):
         
         if user is not None:
             login(request , user)
-            messages.success(request, " user Successfully logged out ! ")
+            messages.success(request, " You are Successfully log in ! ")
             return redirect("home")
         else:
             messages.warning(request , "Username or Password is incorrect ! Please try again ")        
@@ -55,6 +56,7 @@ def Login(request):
 
 def Logout(request):
     logout(request)
+    messages.success(request, " You are Successfully log out ! ")
     return redirect('login')
 
 
