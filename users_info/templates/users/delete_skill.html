@@ -16,10 +16,10 @@
       <form method="POST" class="form auth__form">
         {% csrf_token %}
         <div class="form__field">
-          <p> Are you Sure to delete {{project}}</p>
+          <p> Are you Sure to delete {{ skill.skill_name }}</p>
         </div>
         <div class="auth__actions">
-          <a href="{% url 'home' %}"><button class="btn btn--sub btn--lg" type="submit">Yes, Delete</button></a>
+          <a href="{% url 'account' %}"><button class="btn btn--sub btn--lg" type="submit">Yes, Delete</button></a>
           <a href="{% url 'account' %}">Cancel</a>
         </div>
       </form>

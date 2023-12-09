@@ -1,5 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Project
 from .forms import ProjectForm
@@ -27,13 +28,17 @@ def single_project(request , pk):
 # CRUD Operation
 @login_required(login_url='login')
 def createProject(request):
+    profile = request.user.profile
     form = ProjectForm()
     
     if request.method=='POST':
         form = ProjectForm(request.POST , request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('home')
+            project = form.save(commit=False)
+            project.owner = profile
+            project.save()
+            messages.success(request , "New Project Created successfully!")
+            return redirect('account')
     
     context = {
         'form':form,
@@ -44,14 +49,16 @@ def createProject(request):
 
 @login_required(login_url='login')
 def updateProject(request , pk):
-    project = Project.objects.get(pk=pk)
+    profile = request.user.profile
+    project = profile.project_set.get(pk=pk)
     form = ProjectForm(instance = project)
 
     if request.method=='POST':
         form = ProjectForm(request.POST, request.FILES, instance = project)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            messages.success(request , "Project Updated successfully!")
+            return redirect('account')
     
     context = {
         'form':form,
@@ -63,10 +70,12 @@ def updateProject(request , pk):
 
 @login_required(login_url='login')
 def deleteProject(request , pk):
-    project = Project.objects.get(pk=pk)
+    profile = request.user.profile
+    project = profile.project_set.get(pk=pk)
     if request.method == "POST":
         project.delete()
-        return redirect('home')
+        messages.success(request , "Project Deleted successfully!")
+        return redirect('account')
     
     context = {
         'project':project,
