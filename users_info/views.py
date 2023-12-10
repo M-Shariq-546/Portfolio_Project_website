@@ -7,11 +7,20 @@ from django.contrib.auth import login , authenticate , logout
 from .models import Profile
 from user_projects.models import Project 
 import profile
+from .utils import searchProfiles, profilesPagination
+
+
+
 def profiles(request):
-    profiles = Profile.objects.all()
+    profiles , search_query = searchProfiles(request)
+    #profiles = Profile.objects.all()
+    results = 2
+    custom_range , profiles = profilesPagination(request, profiles , results)
     context ={
         'profiles':profiles,
         'title':"Developers Page",
+        'search_query':search_query,
+        'custom_range':custom_range,
     }
     return render(request , "users/profiles.html" , context)
 

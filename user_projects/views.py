@@ -4,13 +4,19 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Project
 from .forms import ProjectForm
+from .utils import searchProjects , projectsPagination
+from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage
 
 def projects(request):
-    projectList = Project.objects.all()
-    
+    projects , search_query = searchProjects(request)
+    #projectList = Project.objects.all()    
+    results = 3
+    custom_range , projects = projectsPagination(request, projects , results)
     context = {
-        'projects':projectList,
+        'projects':projects,
         'title':"Place to Connect Developers",
+        'search_query':search_query,
+        'custom_range':custom_range,
     }
     return render(request , 'projects/user_projects.html' , context)
 
