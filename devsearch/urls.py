@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('user_projects.urls')),
     path('users/', include('users_info.urls')),
+    path('api/', include('api.urls')),
     path('reset_password/', auth_view.PasswordResetView.as_view(template_name='reset_password.html'), name='reset_password'),
     path('reset_password_done/', auth_view.PasswordResetDoneView.as_view(template_name='reset_password_done.html'), name='password_reset_done'),
     path('reset_password_confirm/<uidb64>/<token>/', auth_view.PasswordResetConfirmView.as_view(template_name='reset_password_confirm.html'), name='password_reset_confirm'),
