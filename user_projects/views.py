@@ -88,4 +88,8 @@ def deleteProject(request , pk):
         'title':"Delete Project",
     }
     return render(request , 'projects/delete_project.html' , context)
+
+def voteProject(request):
+    return render(request, "projects/projects-list.html")
+
 # Create your views here.

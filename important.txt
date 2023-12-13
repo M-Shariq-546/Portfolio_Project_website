@@ -1,4 +1,7 @@
 signals are only to listening the actions performed in our webpage 
 
+JSON web Token are encrypted piece of information about our user 
 
+authentication means who is the user 
 
+while authorizartion means what a user can do
