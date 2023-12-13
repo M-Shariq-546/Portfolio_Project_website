@@ -19,11 +19,25 @@ class Project(models.Model):
     def __str__(self):
         return self.title 
     
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        upvote = reviews.filter(value='up').count() # same as aggregate in MYSQL
+        totalVote = reviews.count()
+        
+        ratio = (upvote / totalVote) * 100
+        self.vote_ratio = ratio
+        self.vote_total = totalVote
+        
+        self.save()
+        
+        
 class Review(models.Model):
     VOTE_TYPE = (
         ('up' , 'up vote'),
         ('down', 'down vote'),
     )
+    owner = models.ForeignKey(Profile , on_delete=models.CASCADE , null=True)
     project = models.ForeignKey(Project , on_delete=models.CASCADE)
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
     body = models.TextField(null=True ,blank=True)
@@ -32,7 +46,7 @@ class Review(models.Model):
     
     def __str__(self):
         return self.value
-    
+            
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     date_of_upload = models.DateTimeField(auto_now_add=True)
