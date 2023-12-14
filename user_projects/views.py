@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Project
+from .models import Project, Tag
 from .forms import ProjectForm
 from .utils import searchProjects , projectsPagination
 from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage
@@ -43,6 +43,9 @@ def createProject(request):
             project = form.save(commit=False)
             project.owner = profile
             project.save()
+            for tags in newtags:
+                tag , created = Tag.objects.get_or_create(name=tags)
+                project.tag.add(tag)
             messages.success(request , "New Project Created successfully!")
             return redirect('account')
     
@@ -60,14 +63,20 @@ def updateProject(request , pk):
     form = ProjectForm(instance = project)
 
     if request.method=='POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split()
+        print("DATA: ", newtags)
         form = ProjectForm(request.POST, request.FILES, instance = project)
         if form.is_valid():
             form.save()
+            for tags in newtags:
+                tag , created = Tag.objects.get_or_create(name=tags)
+                project.tag.add(tag)
             messages.success(request , "Project Updated successfully!")
             return redirect('account')
     
     context = {
         'form':form,
+        'project':project,
         'title':"Update Project",
     }
     return render(request, 'projects/project_form.html', context)
