@@ -4,7 +4,7 @@ from users_info.models import Profile
 
 
 class Project(models.Model):
-    owner = models.ForeignKey(Profile , blank=True , null=True , on_delete=models.SET_NULL)
+    owner = models.ForeignKey(Profile , blank=True , null=True , on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     image = models.ImageField(default='default.jpg' , null=True , blank=True)
     description = models.TextField(null=True , blank=True)
@@ -14,10 +14,14 @@ class Project(models.Model):
     demo_link = models.CharField(max_length=2000 , null=True , blank=True)
     source_link = models.CharField(max_length=2000 , null=True , blank=True)
     date_of_upload = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
-    
+    id = models.IntegerField(primary_key=True, editable=False)
+    #default=uuid.uuid4 ,
     def __str__(self):
         return self.title 
+    
+    class Meta:
+        ordering = ['-vote_total', '-vote_ratio']
+    
     
     @property
     def getVoteCount(self):
@@ -31,7 +35,15 @@ class Project(models.Model):
         
         self.save()
         
-        
+    @property
+    def imageUrl(self):
+        try:
+            url = self.image.url
+        except:
+            url = 'default.jpg'
+        return url  
+    
+     
 class Review(models.Model):
     VOTE_TYPE = (
         ('up' , 'up vote'),

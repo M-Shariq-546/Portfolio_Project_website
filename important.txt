@@ -1,3 +1,32 @@
+API = Application Programming Interface 
+
+API is basically methods of communication between software components
+
+Types of Api
+
+1 Internal Api = Webcam, microphone
+2External Api = Login and using facebook , instagram is example of external api
+
+RestApi = Represetational State Transfer Application Programming Interface
+
+RestApi is the method of access, process and handle the web resources (url , uri , images , audio devices , camera etc). 
+The modified form data found in json, xml, html
+
+URI = Uniform resource Identifier (It is refered as urls and api endpoints)
+
+Server side techs :
+Python/Django
+Ruby on Rail
+Node js 
+Php
+
+Client side techs :
+Angular
+React
+Andoroid
+iOS
+
+
 signals are only to listening the actions performed in our webpage 
 
 JSON web Token are encrypted piece of information about our user 

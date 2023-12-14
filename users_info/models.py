@@ -18,13 +18,25 @@ class Profile(models.Model):
     social_linkedin = models.CharField(max_length=200, blank=True, null=True)
     social_youtube = models.CharField(max_length=200 , blank=True , null=True)
     social_website = models.CharField(max_length=200 , blank=True , null=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
+    #id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
+    id = models.IntegerField(primary_key=True, editable=False)
     #keep working from social links
+    
+    
+    class Meta:
+        ordering = ['name']
     
     def __str__(self):
         return str(self.user.username)
     
-    
+    @property
+    def imageUrl(self):
+        try:
+            url = self.profile_image.url
+        except:
+            url = 'default.jpg'
+        return url  
+        
 class Skill(models.Model):
     owner = models.ForeignKey(Profile , on_delete=models.Case , blank=True , null=True)
     skill_name = models.CharField(max_length=20 , blank=True , null=True)
