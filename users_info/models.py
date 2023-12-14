@@ -18,7 +18,8 @@ class Profile(models.Model):
     social_linkedin = models.CharField(max_length=200, blank=True, null=True)
     social_youtube = models.CharField(max_length=200 , blank=True , null=True)
     social_website = models.CharField(max_length=200 , blank=True , null=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
+    #id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
+    id = models.IntegerField(primary_key=True, editable=False)
     #keep working from social links
     
     

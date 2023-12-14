@@ -14,8 +14,8 @@ class Project(models.Model):
     demo_link = models.CharField(max_length=2000 , null=True , blank=True)
     source_link = models.CharField(max_length=2000 , null=True , blank=True)
     date_of_upload = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
-    
+    id = models.IntegerField(primary_key=True, editable=False)
+    #default=uuid.uuid4 ,
     def __str__(self):
         return self.title 
     
