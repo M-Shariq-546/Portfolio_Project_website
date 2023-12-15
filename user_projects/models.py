@@ -14,7 +14,8 @@ class Project(models.Model):
     demo_link = models.CharField(max_length=2000 , null=True , blank=True)
     source_link = models.CharField(max_length=2000 , null=True , blank=True)
     date_of_upload = models.DateTimeField(auto_now_add=True)
-    id = models.IntegerField(primary_key=True, editable=False)
+    #id = models.BigAutoField(primary_key=True)
+    uid = models.UUIDField(default=uuid.uuid4, editable=False)
     #default=uuid.uuid4 ,
     def __str__(self):
         return self.title 
@@ -54,15 +55,15 @@ class Review(models.Model):
     value = models.CharField(max_length=200, choices=VOTE_TYPE)
     body = models.TextField(null=True ,blank=True)
     date_of_upload = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 ,unique=True, primary_key=True , editable=False)
-    
+    uid = models.UUIDField(default=uuid.uuid4 ,unique=True, editable=False)
+    #id = models.BigAutoField(primary_key=True)
     def __str__(self):
         return self.value
             
 class Tag(models.Model):
     name = models.CharField(max_length=200)
     date_of_upload = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 ,unique=True, primary_key=True , editable=False)
-    
+    uid = models.UUIDField(default=uuid.uuid4 ,unique=True, editable=False)
+    #id = models.BigAutoField(primary_key=True)
     def __str__(self):
         return self.name
