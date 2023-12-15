@@ -144,26 +144,26 @@ CSRF_TRUSTED_ORIGINS = ['https://127.0.0.1:8000//api/project/b2521a67-4b24-442b-
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Default Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 
 # Database connectivity for Random Databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'devsearch',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Shariq@123',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+     'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': 'Devsearch',
+         'USER': 'postgres',
+         'PASSWORD': 'Shariq@123',
+         'HOST': 'localhost',
+         'PORT': '5432',
+     }
+ }
 
 
 # Password validation

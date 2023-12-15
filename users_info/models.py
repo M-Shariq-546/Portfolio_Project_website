@@ -18,9 +18,8 @@ class Profile(models.Model):
     social_linkedin = models.CharField(max_length=200, blank=True, null=True)
     social_youtube = models.CharField(max_length=200 , blank=True , null=True)
     social_website = models.CharField(max_length=200 , blank=True , null=True)
-    #id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
-    id = models.IntegerField(primary_key=True, editable=False)
-    #keep working from social links
+    uid = models.UUIDField(default=uuid.uuid4 , editable=False)
+    #id = models.BigAutoField(primary_key=True)
     
     
     class Meta:
@@ -42,7 +41,8 @@ class Skill(models.Model):
     skill_name = models.CharField(max_length=20 , blank=True , null=True)
     skill_description = models.CharField(max_length=50 , blank=True , null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
+    uid = models.UUIDField(default=uuid.uuid4  , editable=False)
+    #id = models.BigAutoField(primary_key=True)
      
     def __str__(self):
         return self.skill_name
@@ -56,8 +56,8 @@ class Message(models.Model):
     body = models.TextField()
     is_read = models.BooleanField(default=False, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    id = models.UUIDField(default=uuid.uuid4 , primary_key=True , editable=False)
-    
+    uid = models.UUIDField(default=uuid.uuid4  , editable=False)
+    #id = models.BigAutoField(primary_key=True)
     def __str__(self):
         return self.subject
     
